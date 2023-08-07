@@ -1,16 +1,22 @@
-# This is a sample Python script.
+import asyncio
+import logging
+import os
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+from aiogram import Bot, Dispatcher, types, executor, filters
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from dotenv import load_dotenv
 
 
-# Press the green button in the gutter to run the script.
+logging.basicConfig(level=logging.INFO)
+
+load_dotenv()
+API_TOKEN = os.getenv("API_TOKEN")
+bot = Bot(token=API_TOKEN)
+
+storage = MemoryStorage()
+dp = Dispatcher(bot, storage=storage)
+
+
 if __name__ == '__main__':
-    print_hi('PyCharm')
+    executor.start_polling(dp, skip_updates=True)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
