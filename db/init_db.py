@@ -27,6 +27,7 @@ if not os.path.exists(db_file):
                        f"VALUES (?, ?);", id_name)
         conn.commit()
         cursor.close()
+        conn.close()
 
         print("База данных успешно создана из файла code.sql.")
     except Exception as e:
