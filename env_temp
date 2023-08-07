@@ -17,4 +17,4 @@ ELMA_LOGIN = 'familiayimyaotchestvo'
 ELMA_PASSWORD = 'password'
 
 # Токен для внешнего приложения
-ELMA_API_TOKEN = ''
+ELMA_API_TOKEN = '123456789:abcdefghijklmnopqrstuvwxyz'
