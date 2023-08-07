@@ -1,11 +1,10 @@
-import asyncio
 import logging
 import os
 
 from aiogram import Bot, Dispatcher, types, executor, filters
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from dotenv import load_dotenv
-
+from db import init_db
 
 logging.basicConfig(level=logging.INFO)
 
