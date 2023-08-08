@@ -5,6 +5,7 @@ from aiogram import Bot, Dispatcher, types, executor, filters
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from dotenv import load_dotenv
 from db import init_db
+from elma.elma import elma
 
 from common.comands import register_handlers_common
 
