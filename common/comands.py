@@ -23,9 +23,29 @@ async def revenue(message: types.Message):
                                        "Name = ’Выручка, без НДС’",
                                        "Name,Summa,Kommentariy")
 
-    await message.answer(f"*Показатель*: {out[0].Items[2].Value}\n"
-                         f"*Значение*: {out[0].Items[3].Value}\n"
-                         f"*Комментарий*: {out[0].Items[4].Value}", parse_mode='Markdown')
+    await message.answer(f"*{out[0].Items[2].Value}*\n\n"
+                         f"*Цифра:* {out[0].Items[3].Value}\n"
+                         f"*Комментарий:* {out[0].Items[4].Value}", parse_mode='Markdown')
+
+
+async def resource_plan(message: types.Message):
+    out = elma.elma_requests_QueryTree('7414f89e-b840-4137-8256-3ad2c6213816',
+                                       "Name = ’План поступления’",
+                                       "Name,Summa,Kommentariy")
+
+    await message.answer(f"*{out[0].Items[2].Value}*\n\n"
+                         f"*Цифра:* {out[0].Items[3].Value}\n"
+                         f"*Комментарий:* {out[0].Items[4].Value}", parse_mode='Markdown')
+
+
+async def cost_effectiveness(message: types.Message):
+    out = elma.elma_requests_QueryTree('7414f89e-b840-4137-8256-3ad2c6213816',
+                                       "Name = ’Рентабельность’",
+                                       "Name,Summa,Kommentariy")
+
+    await message.answer(f"*{out[0].Items[2].Value}*\n\n"
+                         f"*Цифра:* {out[0].Items[3].Value}\n"
+                         f"*Комментарий:* {out[0].Items[4].Value}", parse_mode='Markdown')
 
 
 def register_handlers_common(dp: Dispatcher):
@@ -35,4 +55,14 @@ def register_handlers_common(dp: Dispatcher):
     dp.register_message_handler(revenue,
                                 content_types=['text'],
                                 text='Выручка',
+                                state=StartMenu.menu)
+
+    dp.register_message_handler(resource_plan,
+                                content_types=['text'],
+                                text='План поступления',
+                                state=StartMenu.menu)
+
+    dp.register_message_handler(cost_effectiveness,
+                                content_types=['text'],
+                                text='Рентабельность',
                                 state=StartMenu.menu)
