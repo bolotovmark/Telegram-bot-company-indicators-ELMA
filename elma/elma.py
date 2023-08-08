@@ -40,9 +40,8 @@ class ELMA:
                    'Content-type': 'application/json'}
 
         r = requests.get(url, auth=HTTPBasicAuth(self.ELMA_LOGIN, self.ELMA_PASSWORD), headers=headers)
-        print("url:", r.url, "\nstatus code: ", r.status_code)
         out = json.loads(r.content)
-        print(out['AuthToken'], " ", out['SessionToken'])
+        print("new AuthToken: ", out['AuthToken'], "\nnew SessionToken: ", out['SessionToken'])
         self.AuthToken = out['AuthToken']
         self.SessionToken = out['SessionToken']
 
@@ -52,7 +51,6 @@ class ELMA:
                          headers={'SessionToken': self.SessionToken,
                                   'AuthToken': self.AuthToken,
                                   'Content-type': 'application/json'})
-        print(r.status_code)
         if r.status_code != 200:
             self.auth()
             return self.elma_requests_QueryTree(typeuid, eql, select)
@@ -60,7 +58,4 @@ class ELMA:
 
 
 elma = ELMA()
-out = elma.elma_requests_QueryTree('7414f89e-b840-4137-8256-3ad2c6213816',
-                                   "Name = ’Выручка, без НДС’",
-                                   "Name,Summa,Kommentariy")
-print(out[0].Items[2].Value, out[0].Items[3].Value, out[0].Items[4].Value)
+
