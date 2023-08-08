@@ -21,7 +21,7 @@ async def db_get_list_user():
     try:
         cur = conn.cursor()
         rez = cur.execute(f"SELECT * FROM users")
-        user = rez.fetchone()
+        user = rez.fetchall()
         cur.close()
         return user
     except Exception as e:

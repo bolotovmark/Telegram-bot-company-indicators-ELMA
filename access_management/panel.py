@@ -9,7 +9,7 @@ async def back_to_change_users_panel(message: types.Message):
     return await start_menu(message)
 
 
-def register_handlers_change_users_panel(dp: Dispatcher):
+def register_handlers_access_management_panel(dp: Dispatcher):
     dp.register_message_handler(back_to_change_users_panel,
                                 content_types=['text'],
                                 text='↩️ Отменить и вернуться в панель управления',
