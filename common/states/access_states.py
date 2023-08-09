@@ -12,9 +12,7 @@ class PanelAccessManagement(StatesGroup):
 #  PanelAccessManagement
 class FormAddNewUser(StatesGroup):
     id = State()
-    position_name = State()
     name = State()
-    position_id = 0
 
 
 #  PanelAccessManagement
