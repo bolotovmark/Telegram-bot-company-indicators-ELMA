@@ -59,3 +59,13 @@ class ELMA:
 
 elma = ELMA()
 
+
+async def elma_get_list_indicators():
+    rows = elma.elma_requests_QueryTree('f314b4dc-d36b-4f6f-8d8a-a43a095c1d7d', '', 'Pokazatelj')
+    indicators = []
+    for row in rows:
+        indicators.append(row['Items'][2]['DataArray'][0]['Items'][4]['Value'])
+
+    unique_numbers = list(set(indicators))
+    print(unique_numbers)
+    return unique_numbers
