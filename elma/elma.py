@@ -41,7 +41,7 @@ class ELMA:
 
         r = requests.get(url, auth=HTTPBasicAuth(self.ELMA_LOGIN, self.ELMA_PASSWORD), headers=headers)
         out = json.loads(r.content)
-        print("new AuthToken: ", out['AuthToken'], "\nnew SessionToken: ", out['SessionToken'])
+        print("new AuthToken: ", out['AuthToken'], "\nnew SessionToken: ", out['SessionToken'], "\n")
         self.AuthToken = out['AuthToken']
         self.SessionToken = out['SessionToken']
 
