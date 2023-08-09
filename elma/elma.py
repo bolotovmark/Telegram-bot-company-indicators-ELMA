@@ -64,8 +64,41 @@ async def elma_get_list_indicators():
     rows = elma.elma_requests_QueryTree('f314b4dc-d36b-4f6f-8d8a-a43a095c1d7d', '', 'Pokazatelj')
     indicators = []
     for row in rows:
-        indicators.append(row['Items'][2]['DataArray'][0]['Items'][4]['Value'])
+        indicators.append(str(row['Items'][2]['DataArray'][0]['Items'][4]['Value']).title())
 
     unique_numbers = list(set(indicators))
-    print(unique_numbers)
     return unique_numbers
+
+
+async def elma_get_info_about_indicator(name_indicator):
+    eql = f"Pokazatelj in (FROM PokazateliGKERIS_Pokazatelj SELECT Id WHERE Nazvanie LIKE ’{name_indicator}’)"
+    rows = elma.elma_requests_QueryTree('f314b4dc-d36b-4f6f-8d8a-a43a095c1d7d', eql, 'YurLico,Tip,Summa')
+    out = []
+    for row in rows:
+        tip = row['Items'][3]['Value']
+        summa = split_float_into_triads(float(row['Items'][2]['Value']))
+        yurlico = row['Items'][4]['Data']['Items'][3]['Value']
+
+        out.append([yurlico, tip, summa])
+    return out
+
+
+def split_float_into_triads(number):
+    # Преобразуем число в строку и разделяем на целую и дробную части
+    integer_part, decimal_part = str(number).split('.')
+
+    # Разбиваем целую часть на триады, начиная справа
+    integer_triads = []
+    while integer_part:
+        triad = integer_part[-3:]  # Берем последние три символа
+        integer_part = integer_part[:-3]  # Убираем последние три символа
+        integer_triads.insert(0, triad)  # Вставляем triad в начало списка
+
+    # Собираем результат в строку с разделителем ','
+    result = ','.join(integer_triads)
+
+    # Если есть дробная часть, добавляем ее в результат
+    if decimal_part != '0':
+        result += '.' + decimal_part
+
+    return result
