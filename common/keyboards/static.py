@@ -18,3 +18,19 @@ kb_access_management_menu = types.ReplyKeyboardMarkup(
 kb_access_management_menu.add(types.InlineKeyboardButton(text="Список пользователей"))
 kb_access_management_menu.add(types.InlineKeyboardButton(text="↩️ Вернуться в главное меню"))
 ###
+
+###
+kb_empty_method = types.ReplyKeyboardMarkup(resize_keyboard=True)
+kb_empty_method.add(types.InlineKeyboardButton(text="↩️ Отменить и вернуться в панель управления"))
+###
+
+###
+kb_boolean_keyboard = types.ReplyKeyboardMarkup(
+    keyboard=[
+        [
+            types.KeyboardButton(text="✅"),
+            types.KeyboardButton(text="❌")
+        ],
+    ], resize_keyboard=True)
+kb_boolean_keyboard.add(types.InlineKeyboardButton(text="↩️ Отменить и вернуться в панель управления"))
+###

@@ -35,3 +35,10 @@ async def db_insert_new_user(user_id, name):
     cur.execute("INSERT INTO users(telegram_id_user, name) VALUES (?, ?);", data_insert)
     conn.commit()
     cur.close()
+
+
+async def db_remove_user(user_id: str):
+    cur = conn.cursor()
+    cur.execute(f"DELETE FROM users WHERE telegram_id_user = {user_id};")
+    conn.commit()
+    cur.close()

@@ -4,13 +4,13 @@ from aiogram.dispatcher import FSMContext
 from common.states.access_states import FormAddNewUser, PanelAccessManagement
 from db.methods import db_exists_user, db_insert_new_user
 from common.comands import access_management_menu
-from common.keyboards.static import empty_method
+from common.keyboards.static import kb_empty_method
 
 
 # @dp.message_handler(content_types=['text'], text='Добавить', state=FormChangeListUsers.menu)
 async def start_form_AddNewUser(message: types.Message):
     await FormAddNewUser.id.set()
-    await message.answer("Введите ID нового пользователя:", reply_markup=empty_method)
+    await message.answer("Введите ID нового пользователя:", reply_markup=kb_empty_method)
 
 
 # @dp.message_handler(lambda message: not message.text.isdigit(), state=FormAddNewUser.id)
@@ -28,7 +28,7 @@ async def process_id(message: types.Message, state: FSMContext):
         await FormAddNewUser.next()
         await state.update_data(id=int(message.text))
 
-        await message.answer("Напишите ФИО", reply_markup=empty_method)
+        await message.answer("Напишите ФИО", reply_markup=kb_empty_method)
     else:
         await message.answer(f"Этот пользователь уже находиться в базе")
 
