@@ -1,5 +1,5 @@
 from aiogram import Dispatcher, types
-
+from aiogram.dispatcher import FSMContext
 from common.states.company_indicators import PanelCompanyIndicators
 from common.states.none_auth import NoneAuth
 from common.states.access_states import StartMenu, PanelAccessManagement
@@ -35,9 +35,9 @@ async def cancel_access_management_menu(message: types.Message):
     return await start_menu(message)
 
 
-async def select_company_indicator(message: types.Message):
+async def select_company_indicator(message: types.Message, state: FSMContext):
     await PanelCompanyIndicators.select_indicators.set()
-    return await start_form_select_company_indicator(message)
+    return await start_form_select_company_indicator(message, state)
 
 
 def register_handlers_common(dp: Dispatcher):
@@ -57,7 +57,7 @@ def register_handlers_common(dp: Dispatcher):
     dp.register_message_handler(cancel_access_management_menu,
                                 content_types=['text'],
                                 text='↩️ Вернуться в главное меню',
-                                state=[PanelAccessManagement])
+                                state=[PanelAccessManagement, PanelCompanyIndicators])
 
     dp.register_message_handler(select_company_indicator,
                                 content_types=['text'],

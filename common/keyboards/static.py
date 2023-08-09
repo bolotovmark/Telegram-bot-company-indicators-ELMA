@@ -34,3 +34,7 @@ kb_boolean_keyboard = types.ReplyKeyboardMarkup(
     ], resize_keyboard=True)
 kb_boolean_keyboard.add(types.InlineKeyboardButton(text="↩️ Отменить и вернуться в панель управления"))
 ###
+
+###
+kb_back_to_main_panel = types.ReplyKeyboardMarkup(resize_keyboard=True)
+kb_back_to_main_panel .add(types.InlineKeyboardButton(text="↩️ Вернуться в главное меню"))

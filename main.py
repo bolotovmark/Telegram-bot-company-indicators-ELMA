@@ -20,6 +20,7 @@ from access_management.panel import register_handlers_access_management_panel
 from access_management.add_new_user import register_handlers_access_management_add_new_user
 from access_management.remove_user import register_handlers_access_management_remove_user
 
+from company_indicators.panel import register_handlers_select_company_indicators
 logging.basicConfig(level=logging.INFO)
 
 load_dotenv()
@@ -35,6 +36,8 @@ register_handlers_access_management_list(dp)
 register_handlers_access_management_panel(dp)
 register_handlers_access_management_add_new_user(dp)
 register_handlers_access_management_remove_user(dp)
+
+register_handlers_select_company_indicators(dp)
 ###
 
 
