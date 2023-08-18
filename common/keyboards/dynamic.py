@@ -5,7 +5,7 @@ from elma.elma import elma_get_list_indicators
 
 async def dynamic_kb_company_indicators(offset):
     company_indicators = await elma_get_list_indicators()
-
+    company_indicators.sort()
     inline_kb_full = InlineKeyboardMarkup(row_width=2)
     if company_indicators:
         offset_list = company_indicators[offset:][:5]

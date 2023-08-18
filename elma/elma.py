@@ -71,12 +71,12 @@ async def elma_get_list_indicators():
 
 
 async def elma_get_info_about_indicator(name_indicator):
-    eql = f"Pokazatelj in (from PokazateliGKERIS select Id where Tip like '{name_indicator}')"
+    eql = f"Pokazatelj in (from PokazateliGKERIS select Pokazatelj where Tip like ’{name_indicator}’)"
     rows = elma.elma_requests_QueryTree('f314b4dc-d36b-4f6f-8d8a-a43a095c1d7d', eql, 'YurLico,Nazvanie,Summa')
     out = []
     for row in rows[0]['Items'][8]['DataArray']:
         tip = row['Items'][5]['Value']
-        summa = split_float_into_triads(float(row['Items'][6]['Value']))
+        summa = await split_float_into_triads(float(row['Items'][6]['Value']))
         try: 
             yurlico = row['Items'][4]['Data']['Items'][3]['Value']
         except TypeError:
@@ -86,7 +86,7 @@ async def elma_get_info_about_indicator(name_indicator):
     return out
 
 
-def split_float_into_triads(number):
+async def split_float_into_triads(number):
     # Преобразуем число в строку и разделяем на целую и дробную части
     integer_part, decimal_part = str(number).split('.')
 

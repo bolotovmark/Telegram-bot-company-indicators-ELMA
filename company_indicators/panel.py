@@ -40,9 +40,9 @@ async def select_company_indicators(callback_query: types.CallbackQuery, state: 
         for h in groupby(sorted(g[1], key=lambda x: x[1]), key=lambda x: x[1]):
             for i in h[1]:
                 if h[0] != '':
-                    output_text += f"\n▪️{h[0]}: {i[2]}"
+                    output_text += f"\n▪️{h[0]}: *{i[2]}*"
                 else:
-                    output_text += f"\n▪️{i[2]}"
+                    output_text += f"\n▪️*{i[2]}*"
 
     bot = callback_query.bot
     await bot.edit_message_text(
