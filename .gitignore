@@ -2,3 +2,13 @@
 /venv/
 .env
 db.sqlite
+/.vs/
+/access_management/__pycache__/
+/.env.txt
+/common/keyboards/__pycache__
+/common/states/__pycache__
+/common/__pycache__
+/company_indicators/__pycache__
+/db/__pycache__
+/elma/__pycache__
+/env

@@ -47,7 +47,7 @@ class ELMA:
 
     def elma_requests_QueryTree(self, typeuid, eql, select):
         r = requests.get(f'https://elma.eriskip.com/API/REST/Entity/QueryTree?'
-                         f'type={typeuid}&q={eql}&select={select}',
+                         f'type={typeuid}&q={eql}&$select={select}',
                          headers={'SessionToken': self.SessionToken,
                                   'AuthToken': self.AuthToken,
                                   'Content-type': 'application/json'})
@@ -64,21 +64,24 @@ async def elma_get_list_indicators():
     rows = elma.elma_requests_QueryTree('f314b4dc-d36b-4f6f-8d8a-a43a095c1d7d', '', 'Pokazatelj')
     indicators = []
     for row in rows:
-        indicators.append(str(row['Items'][2]['DataArray'][0]['Items'][4]['Value']).title())
+        indicators.append(str(row['Items'][3]['Value'].title()))
 
     unique_numbers = list(set(indicators))
     return unique_numbers
 
 
 async def elma_get_info_about_indicator(name_indicator):
-    eql = f"Pokazatelj in (FROM PokazateliGKERIS_Pokazatelj SELECT Id WHERE Nazvanie LIKE ’{name_indicator}’)"
-    rows = elma.elma_requests_QueryTree('f314b4dc-d36b-4f6f-8d8a-a43a095c1d7d', eql, 'YurLico,Tip,Summa')
+    eql = f"Pokazatelj in (from PokazateliGKERIS select Id where Tip like '{name_indicator}')"
+    rows = elma.elma_requests_QueryTree('f314b4dc-d36b-4f6f-8d8a-a43a095c1d7d', eql, 'YurLico,Nazvanie,Summa')
     out = []
-    for row in rows:
-        tip = row['Items'][3]['Value']
-        summa = split_float_into_triads(float(row['Items'][2]['Value']))
-        yurlico = row['Items'][4]['Data']['Items'][3]['Value']
-
+    for row in rows[0]['Items'][8]['DataArray']:
+        tip = row['Items'][5]['Value']
+        summa = split_float_into_triads(float(row['Items'][6]['Value']))
+        try: 
+            yurlico = row['Items'][4]['Data']['Items'][3]['Value']
+        except TypeError:
+            yurlico = ''
+        
         out.append([yurlico, tip, summa])
     return out
 
