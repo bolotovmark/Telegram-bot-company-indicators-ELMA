@@ -33,7 +33,10 @@ async def select_company_indicators(callback_query: types.CallbackQuery, state: 
     output_text = f'📈  *{str(company_indicator).title()}*'
 
     for g in groupby(sorted(info, key=lambda x: x[0]), key=lambda x: x[0]):
-        output_text += f"\n\n🔻_{g[0]}_\n"
+        if g[0] != '':
+            output_text += f"\n\n🔻_{g[0]}_\n"
+        else:
+            output_text += "\n"
         for h in groupby(sorted(g[1], key=lambda x: x[1]), key=lambda x: x[1]):
             for i in h[1]:
                 if h[0] != '':
